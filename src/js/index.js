@@ -57,7 +57,6 @@ let RaceBox =  React.createClass({
 	_raceHighlighted(e) {
 		let race = this.props.races.findByID(e.target.value);
 		this.setState({race});
-
 	},
 	_raceSelect() {
 		let race = this.props.races.findByID(this.state.race.id);
@@ -69,11 +68,12 @@ let RaceBox =  React.createClass({
 
 		let races = this.props.races || null;
 
-		let raceText;
+		let raceText, raceDesc;
 		let raceName = (race) ? race.name : null;
 
 		if (race) {
 			raceText = "Looking at " + race.name + ".";
+			raceDesc = race.desc + ".";
 		} else {
 			raceText = "No race highlighted."
 		}
@@ -89,6 +89,7 @@ let RaceBox =  React.createClass({
 			</select>
 			<br />
 			<div>{raceText}</div>
+			<div>{raceDesc}</div>
 			<button onClick={this._raceSelect} >Select race</button>
 			</div>
 		);
@@ -108,6 +109,7 @@ let JobBox = React.createClass({
 	_jobHighlighted(e) {
 		let job = this.props.jobs.findByID(e.target.value);
 		this.setState({job});
+		debugger;
 	},
 	_jobSelect() {
 		let job = this.props.jobs.findByID(this.state.job.id);
@@ -152,17 +154,26 @@ let JobBox = React.createClass({
 let CharacterNameEntry = React.createClass({
 	getInitialState() {
 		return {
-			onNameChange: this.props.onNameChange
+			onNameChange: this.props.string
 		};
 	},
 	_onNameChange(e) {
 		e.preventDefault();
-		CharacterState.name = e.target.value;
+		this.setState({onNameChange: e.target.value});
+	},
+	_onNameSelect(e) {
+		e.preventDefault();
+		CharacterState.name = this.state.onNameChange;
+		this.setState({onNameChange: ""});
 	},
 	render() {
 		console.log("Rendering char name entry");
 		return (
-			<input type="text" placeholder="Your name" onChange={this._onNameChange} className="dnd-input" ref="characterName" />)
+			<div>
+				<input type="text" placeholder="Your name" onChange={this._onNameChange} value={this.state.onNameChange} className="dnd-input" ref="characterName" />
+				<button onClick={this._onNameSelect} >Change name</button>
+			</div>
+		)
 	}
 });
 

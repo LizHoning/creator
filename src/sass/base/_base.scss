@@ -1,0 +1,71 @@
+html, body{
+	margin: 0;
+	padding: 0;
+	@extend %full-size;
+	overflow: hidden;
+	font-family: arial;
+	line-height: 1em;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	.creator-shell {
+		padding: 20px;
+	}
+
+	.creator-box {
+		margin-bottom: 20px;
+	}
+
+	input, select {
+		height: 20px;
+		box-sizing: border-box;
+		line-height: 1em;
+	}
+
+	input.dnd-input, select.dnd-select {
+		border-radius: 5px;
+		border: 1px solid $lightpurple;
+		background-color: $whitepurple;
+		padding-left: 5px;
+
+		&:focus {
+			box-shadow: 0 0 5px $mediumpurple;
+		  border: 1px solid $mediumpurple;
+		  outline: none;
+		}
+	}
+
+	input.dnd-btn {
+		background-color: $purple;
+		border: none;
+		color: $white;
+		font-weight: 700;
+		border-radius: 5px;
+
+		&.name-btn {
+			margin-left: 10px;
+		}
+
+		&:focus {
+			outline-color: transparent;
+			outline-style: none;
+			outline: none !important;
+			border: none;
+		}
+		&:active {
+			background-color: $black;
+		}
+	}
+
+	.characterNameEntry {
+		margin-bottom: 10px;
+	}
+
+	.job-select {
+		margin-left: 10px;
+	}
+
+	.race-select {
+		margin: 0px 20px 0px 10px;
+	}
+}

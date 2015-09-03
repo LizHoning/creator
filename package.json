@@ -1,0 +1,36 @@
+{
+  "registry": "jspm",
+  "name": "thing",
+  "version": "0.0.0",
+  "description": "",
+  "repository": "lhoning/creator",
+  "keywords": [],
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^5.5.5",
+    "gulp": "^3.8.11",
+    "gulp-replace": "^0.5.3",
+    "salespreso-gulp": "^1.3.0"
+  },
+  "jspm": {
+    "main": "index",
+    "configFile": "src/config.js",
+    "dependencies": {
+      "ampersand-collection": "npm:ampersand-collection@^1.4.5",
+      "ampersand-collection-lodash-mixin": "npm:ampersand-collection-lodash-mixin@^2.0.1",
+      "ampersand-collection-rest-mixin": "npm:ampersand-collection-rest-mixin@^4.2.0",
+      "ampersand-model": "npm:ampersand-model@^5.0.3",
+      "ampersand-state": "npm:ampersand-state@^4.5.6",
+      "bluebird": "npm:bluebird@^2.9.27",
+      "bows": "npm:bows@^1.4.3",
+      "jsx": "github:floatdrop/plugin-jsx@^1.1.0",
+      "lodash": "npm:lodash@^3.9.3",
+      "react": "npm:react@^0.14.0-alpha3"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4"
+    }
+  }
+}

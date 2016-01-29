@@ -1,18 +1,21 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Creator</title>
-  <link rel="stylesheet" type="text/css" href="main.css">
-  <script src="../jspm_packages/system.js"></script>
-  <script src="./config.js"></script>
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta charset="UTF-8">
+	<title>Creator</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script src="../jspm_packages/system.js"></script>
+	<script src="./config.js"></script>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
 <div id="page">
 </div>
-  <script>
-    System.import("js/index");
-  </script>
+	<script>
+		System.import("js/index")
+		.catch(function(err) {
+			console.error(err.stack || err);
+		});
+	</script>
 </body>
 </html>

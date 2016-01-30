@@ -109,7 +109,6 @@ let JobBox = React.createClass({
 	_jobHighlighted(e) {
 		let job = this.props.jobs.findByID(e.target.value);
 		this.setState({job});
-		debugger;
 	},
 	_jobSelect() {
 		let job = this.props.jobs.findByID(this.state.job.id);

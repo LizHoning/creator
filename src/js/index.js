@@ -1,11 +1,14 @@
 import _ from "lodash";
 import React from "react";
+import ReactDOM from "react-dom";
 import Promise from "bluebird";
 
 import RaceCollection from "./collections/races";
 import JobCollection from "./collections/jobs";
 
 import CharacterState from "./CharacterState";
+
+import {RaisedButton} from "sp-components";
 
 let races = new RaceCollection();
 let jobs = new JobCollection();
@@ -170,7 +173,7 @@ let CharacterNameEntry = React.createClass({
 		return (
 			<div>
 				<input type="text" placeholder="Your name" onChange={this._onNameChange} value={this.state.onNameChange} className="dnd-input" ref="characterName" />
-				<button onClick={this._onNameSelect} >Change name</button>
+				<RaisedButton label="Change name" onClick={this._onNameSelect}/>
 			</div>
 		)
 	}

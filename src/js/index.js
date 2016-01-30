@@ -245,5 +245,5 @@ let CharacterDisplay = React.createClass({
 // Oh man... move this?!
 Promise.all([races.fetch(),jobs.fetch()]).then(function() {
 	var bleh = document.getElementById("page");
-	React.render(<App />, bleh);
+	ReactDOM.render(<App />, bleh);
 });

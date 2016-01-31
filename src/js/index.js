@@ -8,7 +8,7 @@ import JobCollection from "./collections/jobs";
 
 import CharacterState from "./CharacterState";
 
-import {RaisedButton} from "sp-components";
+import {RaisedButton, DropDownMenu, MenuItem} from "sp-components";
 
 let races = new RaceCollection();
 let jobs = new JobCollection();
@@ -57,8 +57,8 @@ let RaceBox =  React.createClass({
 
 		return {race};
 	},
-	_raceHighlighted(e) {
-		let race = this.props.races.findByID(e.target.value);
+	_raceHighlighted(raceID) {
+		let race = this.props.races.findByID(raceID);
 		this.setState({race});
 	},
 	_raceSelect() {
@@ -83,17 +83,17 @@ let RaceBox =  React.createClass({
 
 		return (
 			<div>
-			<select defaultValue={race.id} onChange={this._raceHighlighted} className="dnd-select race-select">
+			<DropDownMenu selectedValue={race.id} onChange={this._raceHighlighted}>
 			{
 				races.map(function(race) {
-					return (<option value={race.id} key={race.id}>{race.name}</option>);
+					return (<MenuItem disabled={false} key={race.id} value={race.id} label={race.name} />);
 				})
 			}
-			</select>
+			</DropDownMenu>
 			<br />
 			<div>{raceText}</div>
 			<div>{raceDesc}</div>
-			<button onClick={this._raceSelect} >Select race</button>
+			<RaisedButton label="Select race" onClick={this._raceSelect}/>
 			</div>
 		);
 	}
@@ -109,8 +109,8 @@ let JobBox = React.createClass({
 
 		return {job};
 	},
-	_jobHighlighted(e) {
-		let job = this.props.jobs.findByID(e.target.value);
+	_jobHighlighted(jobID) {
+		let job = this.props.jobs.findByID(jobID);
 		this.setState({job});
 	},
 	_jobSelect() {
@@ -131,16 +131,16 @@ let JobBox = React.createClass({
 
 		return (
 			<div>
-				<select value={job.id} onChange={this._jobHighlighted} className="dnd-select job-select">
+				<DropDownMenu selectedValue={job.id} onChange={this._jobHighlighted}>
 				{
 					jobs.models.map(function(job) {
-						return (<option value={job.id} key={job.id}>{job.name}</option>);
+						return (<MenuItem disabled={false} key={job.id} value={job.id} label={job.name} />);
 					})
 				}
-				</select>
+				</DropDownMenu>
 				<br />
 				<div>{jobText}</div>
-				<button onClick={this._jobSelect} >Select class</button>
+				<RaisedButton label="Select class" onClick={this._jobSelect}/>
 			</div>
 		);
 

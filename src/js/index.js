@@ -8,7 +8,7 @@ import JobCollection from "./collections/jobs";
 
 import CharacterState from "./CharacterState";
 
-import {RaisedButton, DropDownMenu, MenuItem} from "sp-components";
+import {RaisedButton, DropDownMenu, MenuItem, TextField, Tabs, Tab} from "sp-components";
 
 let races = new RaceCollection();
 let jobs = new JobCollection();
@@ -22,18 +22,63 @@ CharacterState.jobs = new JobCollection();
 let App = React.createClass ({
 	getInitialState() {
 		return {
-			jobs,
-			races
+			page: "edit"
+		}
+	},
+	_handlePageChange(page) {
+		this.setState({page: page});
+	},
+	_selectPage() {
+		switch(this.state.page) {
+			case "edit":
+			default:
+				return <EditPage character={this.state.yourCharacter} />
+			break;
+			case "stats":
+			break;
+			case "display":
+			break;
 		}
 	},
 	render() {
 		console.log("Rendering app");
 
+		return (
+			<div className="creator-shell">
+				<Tabs selectedValue={this.state.page} onChange={this._handlePageChange}>
+					<Tab value="edit" label="Edit Character"/>
+					<Tab value="stats" label="Character Stats"/>
+					<Tab value="display" label="Character Display"/>
+				</Tabs>
+				{this._selectPage()}
+			</div>
+		);
+	}
+});
+
+/*
+* Pages - different pages available for editing and viewing your Character
+*/
+
+/*
+* Edit page - Page for editing basic information about your character
+*/
+
+let EditPage =  React.createClass({
+	getInitialState() {
+		return {
+			jobs,
+			races
+		};
+	},
+	render() {
+		console.log("Rendering edit page");
+		
 		let races = this.state.races;
 		let jobs = this.state.jobs;
 
 		return (
-			<div className="creator-shell">
+			<div>
 				<CharacterNameEntry />
 				<br/><br/>
 				<JobBox jobSelect={this.jobSelect} jobs={this.state.jobs} />
@@ -159,9 +204,8 @@ let CharacterNameEntry = React.createClass({
 			onNameChange: this.props.string
 		};
 	},
-	_onNameChange(e) {
-		e.preventDefault();
-		this.setState({onNameChange: e.target.value});
+	_onNameChange(value) {
+		this.setState({onNameChange: value});
 	},
 	_onNameSelect(e) {
 		e.preventDefault();
@@ -172,7 +216,7 @@ let CharacterNameEntry = React.createClass({
 		console.log("Rendering char name entry");
 		return (
 			<div>
-				<input type="text" placeholder="Your name" onChange={this._onNameChange} value={this.state.onNameChange} className="dnd-input" ref="characterName" />
+				<TextField floatingLabelText="Your name" value={this.state.onNameChange} onChange={this._onNameChange}/>
 				<RaisedButton label="Change name" onClick={this._onNameSelect}/>
 			</div>
 		)

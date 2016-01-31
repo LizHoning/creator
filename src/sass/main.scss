@@ -1,4 +1,5 @@
 @import "base/constants";
+@import "base/base";
 
 // Internal Libs & Mixins
 @import "jspm:sp-components/css/core";
@@ -62,8 +63,8 @@ html, body {
   line-height: 1em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
-  html .creator-shell, body .creator-shell {
-    padding: 20px; }
+  // html .creator-shell, body .creator-shell {
+  //   padding: 20px; }
   html .creator-box, body .creator-box {
     margin-bottom: 20px; }
   html input, html select, body input, body select {

@@ -9,6 +9,10 @@ html, body{
 	-moz-osx-font-smoothing: grayscale;
 
 	.creator-shell {
+		// padding: 20px;
+	}
+
+	.creator-body {
 		padding: 20px;
 	}
 
@@ -54,6 +58,20 @@ html, body{
 		}
 		&:active {
 			background-color: $black;
+		}
+	}
+
+	.dnd-card {
+		.dnd-card-header {
+			padding: 20px;
+			background-color: $purple;
+		}
+		.dnd-card-body {
+			padding: 20px;
+			display: block;
+			&.collapsed {
+				display: none;
+			}
 		}
 	}
 

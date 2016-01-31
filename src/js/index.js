@@ -8,7 +8,15 @@ import JobCollection from "./collections/jobs";
 
 import CharacterState from "./CharacterState";
 
-import {RaisedButton, DropDownMenu, MenuItem, TextField, Tabs, Tab} from "sp-components";
+import {
+	RaisedButton,
+	DropDownMenu,
+	MenuItem,
+	TextField,
+	Tabs,
+	Tab,
+	Paper
+} from "sp-components";
 
 let races = new RaceCollection();
 let jobs = new JobCollection();
@@ -66,26 +74,51 @@ let App = React.createClass ({
 
 let EditPage =  React.createClass({
 	getInitialState() {
+		CharacterState.on("change:name", function() {
+			let name = CharacterState.name;
+			this.setState({name});
+		}.bind(this));
+
+		CharacterState.on("change:race", function() {
+			let race = CharacterState.race;
+			this.setState({race});
+		}.bind(this));
+
+		CharacterState.on("change:baseJob", function() {
+			let baseJob = CharacterState.baseJob;
+			this.setState({baseJob});
+		}.bind(this));
+
 		return {
 			jobs,
-			races
+			races,
+			characterBio: {
+				name: CharacterState.name,
+				baseJob: CharacterState.basejob,
+				race: CharacterState.race,
+				jobs: CharacterState.jobs
+			}
 		};
 	},
 	render() {
 		console.log("Rendering edit page");
-		
+
 		let races = this.state.races;
 		let jobs = this.state.jobs;
 
+		let race = this.state.race || {name: "Human"};
+		let job = this.state.baseJob || {name: "peasant"};
+		let name = this.state.name || "John Doe";
+
 		return (
-			<div>
-				<CharacterNameEntry />
-				<br/><br/>
-				<JobBox jobSelect={this.jobSelect} jobs={this.state.jobs} />
-				<br/><br/>
-				<RaceBox raceSelect={this.raceSelect} races={this.state.races} />
-				<br/><br/>
-				<CharacterDisplay />
+			<div className="creator-body">
+				<DndCard title={name + ", " + race.name + " " + job.name}>
+					<CharacterNameEntry />
+					<br/><br/>
+					<JobBox jobSelect={this.jobSelect} jobs={this.state.jobs} />
+					<br/><br/>
+					<RaceBox raceSelect={this.raceSelect} races={this.state.races} />
+				</DndCard>
 			</div>
 		);
 	}
@@ -128,17 +161,17 @@ let RaceBox =  React.createClass({
 
 		return (
 			<div>
-			<DropDownMenu selectedValue={race.id} onChange={this._raceHighlighted}>
-			{
-				races.map(function(race) {
-					return (<MenuItem disabled={false} key={race.id} value={race.id} label={race.name} />);
-				})
-			}
-			</DropDownMenu>
-			<br />
-			<div>{raceText}</div>
-			<div>{raceDesc}</div>
-			<RaisedButton label="Select race" onClick={this._raceSelect}/>
+				<DropDownMenu selectedValue={race.id} onChange={this._raceHighlighted}>
+				{
+					races.map(function(race) {
+						return (<MenuItem disabled={false} key={race.id} value={race.id} label={race.name} />);
+					})
+				}
+				</DropDownMenu>
+				<br />
+				<div>{raceText}</div>
+				<div>{raceDesc}</div>
+				<RaisedButton label="Select race" onClick={this._raceSelect}/>
 			</div>
 		);
 	}
@@ -283,6 +316,46 @@ let CharacterDisplay = React.createClass({
 				<br />
 			</div>
 		);
+	}
+});
+
+/*
+* DnD Card
+*/
+
+let DndCard = React.createClass({
+	getInitialState() {
+		return {
+			display: "expanded"
+		}
+	},
+	_addHeader() {
+		return (
+			<div className="dnd-card-header" onClick={this._handleHeaderClick}>
+				<h3>
+					{this.props.title}
+				</h3>
+			</div>
+		);
+	},
+	_handleHeaderClick() {
+		var newDisplay;
+		if (this.state.display === "expanded") {
+			newDisplay = "collapsed";
+		} else {
+			newDisplay = "expanded";
+		}
+		this.setState({ display: newDisplay });
+	},
+	render() {
+		return (
+			<Paper className="dnd-card">
+				{this._addHeader()}
+				<div className={"dnd-card-body " + this.state.display}>
+					{this.props.children}
+				</div>
+			</Paper>
+		)
 	}
 });
 

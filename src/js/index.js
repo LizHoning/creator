@@ -1,6 +1,8 @@
 import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
+// FIX-ME: Please to get this
+// import classnames from "classnames";
 import Promise from "bluebird";
 
 import RaceCollection from "./collections/races";
@@ -107,12 +109,12 @@ let EditPage =  React.createClass({
 		let jobs = this.state.jobs;
 
 		let race = this.state.race || {name: "Human"};
-		let job = this.state.baseJob || {name: "peasant"};
+		let job = this.state.baseJob || {name: "Peasant"};
 		let name = this.state.name || "John Doe";
 
 		return (
 			<div className="creator-body">
-				<DndCard title={name + ", " + race.name + " " + job.name}>
+				<DndCard title={name + ", the " + race.name + " " + job.name}>
 					<CharacterNameEntry />
 					<br/><br/>
 					<JobBox jobSelect={this.jobSelect} jobs={this.state.jobs} />
@@ -143,6 +145,16 @@ let RaceBox =  React.createClass({
 		let race = this.props.races.findByID(this.state.race.id);
 		CharacterState.race = race;
 	},
+	_raceDesc(race) {
+		if (race) {
+			return (
+				<div className="dnd-desc">
+					<h2>{race.name}</h2>
+					<h3>{race.desc}</h3>
+				</div>
+			);
+		}
+	},
 	render() {
 		console.log("Rendering racebox");
 		let race = this.state.race || null;
@@ -151,13 +163,6 @@ let RaceBox =  React.createClass({
 
 		let raceText, raceDesc;
 		let raceName = (race) ? race.name : null;
-
-		if (race) {
-			raceText = "Looking at " + race.name + ".";
-			raceDesc = race.desc + ".";
-		} else {
-			raceText = "No race highlighted."
-		}
 
 		return (
 			<div>
@@ -168,10 +173,8 @@ let RaceBox =  React.createClass({
 					})
 				}
 				</DropDownMenu>
-				<br />
-				<div>{raceText}</div>
-				<div>{raceDesc}</div>
-				<RaisedButton label="Select race" onClick={this._raceSelect}/>
+				{this._raceDesc(race)}
+				<RaisedButton label="Select race" onClick={this._raceSelect} primary={true}/>
 			</div>
 		);
 	}
@@ -195,17 +198,20 @@ let JobBox = React.createClass({
 		let job = this.props.jobs.findByID(this.state.job.id);
 		CharacterState.baseJob = job;
 	},
+	_jobDesc(job) {
+		if (job) {
+			return (
+				<div className="dnd-desc">
+					<h2>{job.name}</h2>
+					<h3>{job.desc}</h3>
+				</div>
+			);
+		}
+	},
 	render() {
 		console.log("Rendering jobbox");
 		let jobs = this.props.jobs;
 		let job = this.state.job;
-		let jobText;
-
-		if (job) {
-			jobText = "Looking at " + job.name + ".";
-		} else {
-			jobText = "No class highlighted."
-		}
 
 		return (
 			<div>
@@ -216,9 +222,8 @@ let JobBox = React.createClass({
 					})
 				}
 				</DropDownMenu>
-				<br />
-				<div>{jobText}</div>
-				<RaisedButton label="Select class" onClick={this._jobSelect}/>
+				{this._jobDesc(job)}
+				<RaisedButton label="Select class" onClick={this._jobSelect} primary={true}/>
 			</div>
 		);
 
@@ -250,7 +255,7 @@ let CharacterNameEntry = React.createClass({
 		return (
 			<div>
 				<TextField floatingLabelText="Your name" value={this.state.onNameChange} onChange={this._onNameChange}/>
-				<RaisedButton label="Change name" onClick={this._onNameSelect}/>
+				<RaisedButton label="Change name" onClick={this._onNameSelect} primary={true}/>
 			</div>
 		)
 	}
@@ -335,6 +340,7 @@ let DndCard = React.createClass({
 				<h3>
 					{this.props.title}
 				</h3>
+				<ContentCreateIcon />
 			</div>
 		);
 	},
@@ -356,6 +362,29 @@ let DndCard = React.createClass({
 				</div>
 			</Paper>
 		)
+	}
+});
+
+let ContentCreateIcon = React.createClass({
+	render() {
+		return (
+			<SvgIcon {...this.props}>
+				<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+			</SvgIcon>
+		);
+	}
+});
+
+let SvgIcon = React.createClass({
+	render() {
+		return (
+			<svg
+				{...this.props}
+				className="sp-svg-icon"
+				viewBox="0 0 24 24">
+				{this.props.children}
+			</svg>
+		);
 	}
 });
 

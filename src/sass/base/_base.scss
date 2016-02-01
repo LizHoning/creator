@@ -8,6 +8,14 @@ html, body{
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
+	h1, h2, h3, h4, h5, h6 {
+		font-size: $headingFontFamily;
+	}
+
+	p, li {
+		font-size: $contentFontFamily;
+	}
+
 	.creator-shell {
 		// padding: 20px;
 	}
@@ -20,57 +28,29 @@ html, body{
 		margin-bottom: 20px;
 	}
 
-	input, select {
-		height: 20px;
-		box-sizing: border-box;
-		line-height: 1em;
-	}
-
-	input.dnd-input, select.dnd-select {
-		border-radius: 5px;
-		border: 1px solid $lightpurple;
-		background-color: $whitepurple;
-		padding-left: 5px;
-
-		&:focus {
-			box-shadow: 0 0 5px $mediumpurple;
-		  border: 1px solid $mediumpurple;
-		  outline: none;
-		}
-	}
-
-	input.dnd-btn {
-		background-color: $purple;
-		border: none;
-		color: $white;
-		font-weight: 700;
-		border-radius: 5px;
-
-		&.name-btn {
-			margin-left: 10px;
-		}
-
-		&:focus {
-			outline-color: transparent;
-			outline-style: none;
-			outline: none !important;
-			border: none;
-		}
-		&:active {
-			background-color: $black;
-		}
-	}
-
 	.dnd-card {
 		.dnd-card-header {
+			position: relative;
 			padding: 20px;
-			background-color: $purple;
+			background-color: $primary-1-color;
+			cursor: pointer;
+			h3 { color: $white; }
+			.sp-svg-icon {
+				position: absolute;
+				top: 16px;
+				right: 20px;
+				path { fill: $white; }
+			}
 		}
 		.dnd-card-body {
 			padding: 20px;
+			padding-top: 0px;
 			display: block;
 			&.collapsed {
 				display: none;
+			}
+			.dnd-desc {
+				padding: 15px 0px;
 			}
 		}
 	}

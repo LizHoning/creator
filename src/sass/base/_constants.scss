@@ -2,9 +2,20 @@
 $fontSizeBig: 24px;
 $fontSizeDef: 14px;
 
-$white: #ffffff;
-$black: #000000;
-$purple: #71129e;
-$mediumpurple: #9a67bf;
-$lightpurple: #e4ccf2;
-$whitepurple: #f5eff9;
+//Typography
+$headingFontFamily: "Roboto", sans-serif !default;
+$contentFontFamily: "Roboto", sans-serif !default;
+
+//App Colors
+$primary-1-color: $light-green-500 !default;
+$primary-2-color: $light-green-700 !default;
+$primary-3-color: $light-green-100 !default;
+$accent-1-color: $light-blue-500 !default;
+$accent-2-color: $light-blue-700 !default;
+$accent-3-color: $light-blue-50 !default;
+
+//Text Colors
+$body-text-color: $dark-black !default;
+
+//Border Colors
+$border-color: $grey-300 !default;
